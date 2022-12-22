@@ -21,31 +21,24 @@ private const val PRICE_FOR_SAME_DAY_PICKUP = 3.00
  */
 class OrderViewModel : ViewModel() {
 
-    // Quantity of cupcakes in this order
-    private val _quantity = MutableLiveData<Int>()
+     private val _quantity = MutableLiveData<Int>()
     val quantity: LiveData<Int> = _quantity
 
-    // Cupcake flavor for this order
-    private val _flavor = MutableLiveData<String>()
+     private val _flavor = MutableLiveData<String>()
     val flavor: LiveData<String> = _flavor
 
-    // Possible date options
-    val dateOptions: List<String> = getPickupOptions()
+     val dateOptions: List<String> = getPickupOptions()
 
-    // Pickup date
-    private val _date = MutableLiveData<String>()
+     private val _date = MutableLiveData<String>()
     val date: LiveData<String> = _date
 
-    // Price of the order so far
-    private val _price = MutableLiveData<Double>()
+     private val _price = MutableLiveData<Double>()
     val price: LiveData<String> = Transformations.map(_price) {
-        // Format the price into the local currency and return this as LiveData<String>
-        NumberFormat.getCurrencyInstance().format(it)
+         NumberFormat.getCurrencyInstance().format(it)
     }
 
     init {
-        // Set initial values for the order
-        resetOrder()
+         resetOrder()
     }
 
     /**
@@ -99,7 +92,6 @@ class OrderViewModel : ViewModel() {
      */
     private fun updatePrice() {
         var calculatedPrice = (quantity.value ?: 0) * PRICE_PER_CUPCAKE
-        // If the user selected the first option (today) for pickup, add the surcharge
         if (dateOptions[0] == _date.value) {
             calculatedPrice += PRICE_FOR_SAME_DAY_PICKUP
         }
